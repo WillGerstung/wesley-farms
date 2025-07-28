@@ -14,7 +14,6 @@ interface PowerBIEmbedProps {
 }
 
 export default function PowerBIEmbed({ 
-  embedUrl, 
   reportId,
   height = "600px", 
   width = "100%" 

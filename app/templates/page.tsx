@@ -7,7 +7,6 @@ import {
   FileSpreadsheet,
   BarChart3,
   Code2,
-  FileText,
   Clock,
   Star,
   TrendingUp,

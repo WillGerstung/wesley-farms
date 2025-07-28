@@ -4,10 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import {
-  BarChart3,
   Download,
   Expand,
   Filter,
@@ -20,6 +18,7 @@ import {
   Users,
   FileText,
   ExternalLink,
+  BarChart3,
 } from "lucide-react";
 import PowerBIEmbed from "@/components/powerbi-embed";
 
@@ -72,8 +71,6 @@ export default function ReportsPage() {
       bgColor: "bg-orange-50",
     },
   ];
-
-  const categories = [...new Set(reports.map(r => r.category))];
 
   return (
     <div className="container mx-auto px-4 py-8">

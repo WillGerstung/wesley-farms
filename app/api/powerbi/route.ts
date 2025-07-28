@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// This is a template for PowerBI embed token generation
-// You'll need to implement the actual authentication logic
-
-interface PowerBIConfig {
-  clientId: string;
-  clientSecret: string;
-  tenantId: string;
-  workspaceId: string;
-  reportId: string;
-}
-
 export async function POST(request: NextRequest) {
   try {
     const { reportId, workspaceId } = await request.json();

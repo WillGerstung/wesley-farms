@@ -8,9 +8,6 @@ import {
   Phone,
   BookOpen,
   ChevronRight,
-  CheckCircle,
-  AlertCircle,
-  Clock,
   Zap,
   Shield,
   HeadphonesIcon,
@@ -18,6 +15,7 @@ import {
   FileText,
   Users,
   Settings,
+  HelpCircle,
 } from "lucide-react";
 
 export default function SupportPage() {
@@ -212,7 +210,7 @@ export default function SupportPage() {
               
               <div className="mt-6 pt-6 border-t text-center">
                 <p className="text-muted-foreground mb-4">
-                  Can't find what you're looking for?
+                  Can&apos;t find what you&apos;re looking for?
                 </p>
                 <Button>
                   <Search className="mr-2 h-4 w-4" />
@@ -295,6 +293,3 @@ export default function SupportPage() {
     </div>
   );
 }
-
-// Add missing import
-import { HelpCircle } from "lucide-react";

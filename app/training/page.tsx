@@ -9,7 +9,6 @@ import {
   Award,
   PlayCircle,
   CheckCircle,
-  Lock,
   TrendingUp,
   BookOpen,
   Target,

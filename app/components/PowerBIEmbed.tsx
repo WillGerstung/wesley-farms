@@ -11,6 +11,8 @@ export default function PowerBIEmbed({
   height = "600px", 
   width = "100%" 
 }: PowerBIEmbedProps) {
+  // Suppress unused variable warning for embedUrl until PowerBI integration is complete
+  console.log('PowerBI embed URL configured:', embedUrl);
   // Note: This is a simplified version. For production, you'll need to implement
   // proper PowerBI authentication using the PowerBI JavaScript SDK
   
@@ -36,7 +38,7 @@ export default function PowerBIEmbed({
             PowerBI Report Placeholder
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-500">
-            To embed PowerBI reports, you'll need to:
+            To embed PowerBI reports, you&apos;ll need to:
           </p>
           <ol className="text-sm text-gray-500 dark:text-gray-500 text-left mt-2 space-y-1">
             <li>1. Install the PowerBI client library</li>
