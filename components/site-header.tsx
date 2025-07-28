@@ -37,17 +37,6 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      {/* Privacy Notice Banner */}
-      <div className="bg-slate-900 text-white text-sm py-2 px-4">
-        <div className="container mx-auto flex items-center justify-center gap-2">
-          <Lock className="h-4 w-4" />
-          <span>This site is private: Only specific people can view this site.</span>
-          <Link href="#" className="underline hover:no-underline">
-            Learn more
-          </Link>
-        </div>
-      </div>
-
       {/* Main Navigation */}
       <div className="container mx-auto">
         <div className="flex h-16 items-center justify-between">
