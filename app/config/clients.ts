@@ -44,8 +44,8 @@ export const wesleyFarmConfig: ClientConfig = {
       id: "sales-dashboard",
       name: "Sales Dashboard",
       description: "Monthly sales performance and analytics",
-      reportId: "YOUR_ACTUAL_REPORT_ID_HERE", // Replace with your report ID
-      workspaceId: "YOUR_ACTUAL_WORKSPACE_ID_HERE", // Replace with your workspace ID
+      reportId: "d9963cb4-073b-4e09-8b55-da70621a9566", // Replace with your report ID
+      workspaceId: "a26eb5a3-b777-4138-a659-51f0ddea0bf3", // Replace with your workspace ID
       category: "Sales",
     },
     {

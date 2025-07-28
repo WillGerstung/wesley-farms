@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
+  BarChart3,
   Download,
   Expand,
   Filter,
@@ -18,59 +19,56 @@ import {
   Users,
   FileText,
   ExternalLink,
-  BarChart3,
 } from "lucide-react";
 import PowerBIEmbed from "@/components/powerbi-embed";
+import { getClientConfig } from "@/app/config/clients";
 
 export default function ReportsPage() {
   const [selectedReport, setSelectedReport] = useState(0);
+  const [reports, setReports] = useState<any[]>([]);
 
-  const reports = [
-    {
-      id: "sales-dashboard",
-      name: "Sales Dashboard",
-      description: "Monthly sales performance and analytics",
-      category: "Sales",
-      lastUpdated: "2 hours ago",
-      embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YOUR_REPORT_ID",
-      icon: DollarSign,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      id: "inventory-report",
-      name: "Inventory Report",
-      description: "Current inventory levels and trends",
-      category: "Operations",
-      lastUpdated: "1 day ago",
-      embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YOUR_REPORT_ID_2",
-      icon: Package,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      id: "financial-overview",
-      name: "Financial Overview",
-      description: "Financial metrics and KPIs",
-      category: "Finance",
-      lastUpdated: "3 hours ago",
-      embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YOUR_REPORT_ID_3",
-      icon: TrendingUp,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-    },
-    {
-      id: "customer-insights",
-      name: "Customer Insights",
-      description: "Customer behavior and segmentation analysis",
-      category: "Marketing",
-      lastUpdated: "5 hours ago",
-      embedUrl: "https://app.powerbi.com/reportEmbed?reportId=YOUR_REPORT_ID_4",
-      icon: Users,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-    },
-  ];
+  useEffect(() => {
+    // Load reports from client config
+    const config = getClientConfig("wesley-farm-supply");
+    if (config && config.reports) {
+      // Map the config reports to include icons and colors
+      const mappedReports = config.reports.map((report, index) => {
+        const iconMap: Record<string, any> = {
+          "Sales": { icon: DollarSign, color: "text-green-600", bgColor: "bg-green-50" },
+          "Operations": { icon: Package, color: "text-blue-600", bgColor: "bg-blue-50" },
+          "Finance": { icon: TrendingUp, color: "text-purple-600", bgColor: "bg-purple-50" },
+          "Marketing": { icon: Users, color: "text-orange-600", bgColor: "bg-orange-50" },
+        };
+        
+        const categoryConfig = iconMap[report.category || "Sales"] || iconMap["Sales"];
+        
+        return {
+          ...report,
+          lastUpdated: "Recently",
+          ...categoryConfig
+        };
+      });
+      setReports(mappedReports);
+    }
+  }, []);
+
+  if (reports.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Card>
+          <CardContent className="p-8 text-center">
+            <BarChart3 className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+            <h3 className="text-lg font-semibold mb-2">No Reports Configured</h3>
+            <p className="text-muted-foreground">
+              Please configure your PowerBI reports in the client configuration file.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const currentReport = reports[selectedReport];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -158,19 +156,21 @@ export default function ReportsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <a
-                href="#"
+                href="/docs/POWERBI_SETUP.md"
                 className="flex items-center text-sm hover:text-primary transition-colors"
               >
                 <FileText className="mr-2 h-4 w-4" />
-                Documentation
+                Setup Guide
                 <ExternalLink className="ml-auto h-3 w-3" />
               </a>
               <a
-                href="#"
+                href="https://app.powerbi.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center text-sm hover:text-primary transition-colors"
               >
                 <BarChart3 className="mr-2 h-4 w-4" />
-                Power BI Desktop
+                Power BI Service
                 <ExternalLink className="ml-auto h-3 w-3" />
               </a>
             </CardContent>
@@ -184,11 +184,11 @@ export default function ReportsPage() {
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <CardTitle>{reports[selectedReport].name}</CardTitle>
-                    <Badge variant="secondary">{reports[selectedReport].category}</Badge>
+                    <CardTitle>{currentReport.name}</CardTitle>
+                    <Badge variant="secondary">{currentReport.category}</Badge>
                   </div>
                   <CardDescription>
-                    {reports[selectedReport].description}
+                    {currentReport.description}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
@@ -204,8 +204,8 @@ export default function ReportsPage() {
             <Separator />
             <CardContent className="p-0">
               <PowerBIEmbed
-                embedUrl={reports[selectedReport].embedUrl}
-                reportId={reports[selectedReport].id}
+                reportId={currentReport.reportId}
+                workspaceId={currentReport.workspaceId}
               />
             </CardContent>
           </Card>
